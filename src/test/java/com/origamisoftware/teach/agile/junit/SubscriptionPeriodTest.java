@@ -4,11 +4,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.fail;
 
 /**
  * @author Spencer A Marks
@@ -17,8 +15,6 @@ public class SubscriptionPeriodTest {
 
     private Calendar now;
     private Calendar sixthMonthsFromNow;
-    private Calendar sixMonthsBefore;
-    private Calendar twelveMonthsBefore;
 
     /**
      * This code is used to setup a known state or baseline
@@ -29,13 +25,7 @@ public class SubscriptionPeriodTest {
         // create a known state (also known as a baseline)
         now = Calendar.getInstance();
         sixthMonthsFromNow = Calendar.getInstance();
-        sixMonthsBefore = Calendar.getInstance();
-        twelveMonthsBefore = Calendar.getInstance();
-
         sixthMonthsFromNow.add(Calendar.MONTH, 6);
-        sixMonthsBefore.add(Calendar.MONTH, -6);
-        twelveMonthsBefore.add(Calendar.YEAR, -1);
-
     }
 
     @Test

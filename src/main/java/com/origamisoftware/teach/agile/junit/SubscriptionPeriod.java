@@ -1,7 +1,5 @@
 package com.origamisoftware.teach.agile.junit;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 import java.time.*;
 import java.util.Calendar;
 import java.util.Date;
@@ -87,7 +85,7 @@ public class SubscriptionPeriod {
             result = true;
         }
         return result;
-        //throw new NotImplementedException();
+
     }
 
     private LocalDate convertToLocal (Date date) {
