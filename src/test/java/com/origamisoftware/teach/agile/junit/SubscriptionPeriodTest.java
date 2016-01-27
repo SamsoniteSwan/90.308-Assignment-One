@@ -4,8 +4,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 /**
@@ -15,6 +17,8 @@ public class SubscriptionPeriodTest {
 
     private Calendar now;
     private Calendar sixthMonthsFromNow;
+    private Calendar sixMonthsBefore;
+    private Calendar twelveMonthsBefore;
 
     /**
      * This code is used to setup a known state or baseline
@@ -25,7 +29,13 @@ public class SubscriptionPeriodTest {
         // create a known state (also known as a baseline)
         now = Calendar.getInstance();
         sixthMonthsFromNow = Calendar.getInstance();
+        sixMonthsBefore = Calendar.getInstance();
+        twelveMonthsBefore = Calendar.getInstance();
+
         sixthMonthsFromNow.add(Calendar.MONTH, 6);
+        sixMonthsBefore.add(Calendar.MONTH, -6);
+        twelveMonthsBefore.add(Calendar.YEAR, -1);
+
     }
 
     @Test
@@ -45,19 +55,19 @@ public class SubscriptionPeriodTest {
 
 
     /**
-     * TODO Currently, this test fails, it is your job to make it pass.
+     * Test the number of days the subscription is in effect
      */
     @Test
     public void testTotalDays() {
         SubscriptionPeriod subscriptionPeriod = new SubscriptionPeriod(now.getTime(), sixthMonthsFromNow.getTime());
         int totalDays = subscriptionPeriod.getTotalDays();
-        long differenceInDays = (sixthMonthsFromNow.getTime().getTime() - now.getTime().getTime()) / (1000 * 60 * 60 * 24);
+        long differenceInDays = (sixthMonthsFromNow.getTime().getTime() - now.getTime().getTime()) / (1000 * 60 * 60 * 24) + 1;
         assertEquals(totalDays, differenceInDays);
     }
 
 
     /**
-     * TODO Currently, this test fails, it is your job to make it pass.
+     * Test the number of months of the subscription
      */
     @Test
     public void testTotalMonths() {
@@ -68,11 +78,15 @@ public class SubscriptionPeriodTest {
     }
 
     /**
-     *  TODO fix this test
+     *  Test if a date after the subscription end date properly returns expired as true
      */
     @Test
     public void testHashExpired() {
-        fail("This test needs to written!.");
+
+        Calendar afterSixMonths = Calendar.getInstance();
+        afterSixMonths.add(Calendar.MONTH, 7);
+        SubscriptionPeriod subscriptionPeriod = new SubscriptionPeriod(now.getTime(), sixthMonthsFromNow.getTime());
+        assertTrue(subscriptionPeriod.hasExpired(afterSixMonths.getTime()));
     }
 
 
